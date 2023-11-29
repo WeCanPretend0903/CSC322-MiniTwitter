@@ -1,10 +1,14 @@
 const http = require("http");
 
-const server = http.createServer((req, res) => {
-    res.wrteHead(200, {"Content-Type"; "text/plain"});
-    res.end("Hello World");
-});
+const app = require('express')();
+const port = process.env.PORT || 3000;
 
-const PORT = process.env.PORT || 3000;
+const UserRouter = require('./api/user');
 
-server.listen(PORT, () => console.log("Server is running on port 3000"));
+const bodyParser = require('express').json;
+app.user(bodyParser());
+app.use('/user', UserRouter)
+
+app.listen(port, () => {
+    console.log(`Server running on Port ${port}`);
+})
